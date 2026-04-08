@@ -1,0 +1,68 @@
+backend:
+  name: github
+  repo: fuckpolitics/stolichnaya
+  branch: main
+  # Для работы OAuth на GitHub Pages нужен OAuth-прокси.
+  # Раскомментируйте строку ниже и укажите URL вашего прокси:
+  # base_url: https://your-oauth-proxy.example.com
+
+media_folder: "public/images"
+public_folder: "/stolichnaya/images"
+
+locale: "ru"
+
+collections:
+  - name: settings
+    label: "Настройки"
+    editor:
+      preview: false
+    files:
+      - label: "Контакты и тексты"
+        name: site
+        file: "content/site.json"
+        fields:
+          - { label: "Название", name: "name", widget: "string" }
+          - { label: "Слоган", name: "tagline", widget: "string" }
+          - { label: "Адрес", name: "address", widget: "string" }
+          - { label: "Телефон", name: "phone", widget: "string" }
+          - { label: "Часы работы", name: "workingHours", widget: "string" }
+          - { label: "Заголовок героя", name: "heroTitle", widget: "string" }
+          - { label: "Подзаголовок героя", name: "heroSubtitle", widget: "text" }
+          - { label: "Заголовок «О нас»", name: "aboutTitle", widget: "string" }
+          - { label: "Текст «О нас»", name: "aboutText", widget: "text" }
+
+      - label: "Меню"
+        name: menu
+        file: "content/menu.json"
+        fields:
+          - label: "Категории"
+            name: "categories"
+            widget: "list"
+            fields:
+              - { label: "Название категории", name: "name", widget: "string" }
+              - label: "Блюда"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Название", name: "name", widget: "string" }
+                  - { label: "Описание", name: "description", widget: "string", required: false }
+                  - { label: "Вес / объём", name: "weight", widget: "string", required: false }
+                  - { label: "Цена (₽)", name: "price", widget: "number", value_type: "int" }
+
+      - label: "Рационы"
+        name: rations
+        file: "content/rations.json"
+        fields:
+          - { label: "Заголовок", name: "title", widget: "string" }
+          - { label: "Описание", name: "description", widget: "text" }
+          - label: "Рационы"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Название", name: "name", widget: "string" }
+              - { label: "Описание", name: "description", widget: "text" }
+              - { label: "Цена (₽)", name: "price", widget: "number", value_type: "int" }
+              - label: "Состав"
+                name: "contents"
+                widget: "list"
+                field: { label: "Пункт", name: "item", widget: "string" }

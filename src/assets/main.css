@@ -1,0 +1,159 @@
+:root {
+  --cherry: #7B2040;
+  --cherry-dark: #5A1530;
+  --cherry-light: #9B3060;
+  --tan: #C8A47E;
+  --tan-light: #F0E4D4;
+  --tan-pale: #F9F3EB;
+  --cream: #FDF8F2;
+  --text: #2C1810;
+  --text-muted: #6B5544;
+  --white: #FFFFFF;
+
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Montserrat', 'Segoe UI', Roboto, Arial, sans-serif;
+
+  --header-height: 72px;
+  --max-width: 1140px;
+  --gap: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--cream);
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+a {
+  color: var(--cherry);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--cherry-dark);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+.section {
+  padding: 64px 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: var(--cherry);
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-primary {
+  background: var(--cherry);
+  color: var(--white);
+  border-color: var(--cherry);
+}
+
+.btn-primary:hover {
+  background: var(--cherry-dark);
+  border-color: var(--cherry-dark);
+  color: var(--white);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cherry);
+  border-color: var(--cherry);
+}
+
+.btn-outline:hover {
+  background: var(--cherry);
+  color: var(--white);
+}
+
+.btn-tan {
+  background: var(--tan);
+  color: var(--white);
+  border-color: var(--tan);
+}
+
+.btn-tan:hover {
+  background: var(--cherry);
+  border-color: var(--cherry);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 60px;
+    --gap: 16px;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
