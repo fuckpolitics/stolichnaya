@@ -7,6 +7,7 @@ const router = createRouter({
     { path: '/', name: 'home', component: HomeView },
     { path: '/menu', name: 'menu', component: () => import('../views/MenuView.vue') },
     { path: '/rations', name: 'rations', component: () => import('../views/RationsView.vue') },
+    { path: '/admin', name: 'admin', component: () => import('../views/AdminView.vue') },
   ],
   scrollBehavior() {
     return { top: 0 }

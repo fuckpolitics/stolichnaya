@@ -1,7 +1,7 @@
 # Столичная — сайт закусочной
 
 Сайт закусочной «Столичная» в Иваново: главная страница, меню, готовые рационы.
-Контент редактируется через админ-панель Decap CMS.
+Контент редактируется через встроенную CMS-панель (`/admin`), которая сохраняет изменения прямо в GitHub-репозиторий.
 
 ## Разработка
 
@@ -10,7 +10,13 @@ npm install
 npm run dev
 ```
 
-Сайт откроется на `http://localhost:5173/stolichnaya/`.
+Сайт откроется на `http://localhost:5173/`.
+
+Для проверки базового пути как на GitHub Pages:
+
+```bash
+VITE_BASE_PATH=/stolichnaya/ npm run dev
+```
 
 ## Сборка
 
@@ -30,43 +36,34 @@ npm run build
 
 Сайт будет доступен по адресу `https://fuckpolitics.github.io/stolichnaya/`.
 
-## Админ-панель (Decap CMS)
+## CMS-панель (`/admin`)
 
-Админка расположена по адресу `/stolichnaya/admin/`. Через неё можно менять:
+Админка расположена по адресу `/admin`. Через неё можно менять:
 
-- Контакты, адрес, часы работы
-- Тексты главной страницы (заголовок, описание, блок «О нас»)
+- Контакты, адрес, часы работы, тексты главной страницы
 - Меню (категории и блюда с ценами)
 - Готовые рационы (название, состав, цена)
 
-### Настройка OAuth-прокси
+### Как это работает
 
-Decap CMS использует GitHub в качестве бэкенда и требует OAuth для авторизации. На GitHub Pages нет серверной части, поэтому нужен внешний OAuth-прокси.
+1. При входе CMS запрашивает PIN-код (задаётся через `VITE_ADMIN_PIN`).
+2. Далее нужно подключить GitHub — ввести Personal Access Token с правом `contents: write`.
+3. Вы редактируете контент через формы и нажимаете «Сохранить».
+4. CMS коммитит обновлённые JSON-файлы прямо в `main` через GitHub API.
+5. GitHub Actions автоматически пересобирает сайт (~2 минуты).
 
-**Шаг 1.** Создайте GitHub OAuth App:
+### Настройка секретов для деплоя
 
-- **Settings → Developer Settings → OAuth Apps → New OAuth App**
-- **Homepage URL:** `https://fuckpolitics.github.io/stolichnaya/`
-- **Authorization callback URL:** URL вашего OAuth-прокси + `/callback`
-- Сохраните **Client ID** и **Client Secret**
+В репозитории **Settings → Secrets and variables → Actions** добавьте:
 
-**Шаг 2.** Разверните OAuth-прокси. Самый простой вариант — бесплатный Cloudflare Worker.
-Готовое решение: [decap-proxy](https://github.com/sterlingwes/decap-proxy) (fork) или
-[sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth) (Cloudflare Worker с минимальной настройкой).
+| Секрет | Описание |
+|---|---|
+| `VITE_ADMIN_PIN` | PIN-код для входа в CMS |
+| `VITE_GITHUB_OWNER` | Логин владельца репозитория (например: `fuckpolitics`) |
+| `VITE_GITHUB_REPO` | Название репозитория (например: `stolichnaya`) |
+| `VITE_GITHUB_TOKEN` | Personal Access Token (fine-grained, `contents: write`). Если задан — поле ввода токена в CMS скрывается |
 
-В Worker-е укажите `Client ID` и `Client Secret` из шага 1.
-
-**Шаг 3.** В файле `public/admin/config.yml` раскомментируйте строку `base_url` и укажите URL вашего прокси:
-
-```yaml
-backend:
-  name: github
-  repo: fuckpolitics/stolichnaya
-  branch: main
-  base_url: https://your-worker.your-account.workers.dev
-```
-
-После этого откройте `/stolichnaya/admin/` — CMS попросит авторизоваться через GitHub и даст доступ к редактированию контента. Каждое сохранение создаёт коммит → Actions пересобирает сайт.
+Подробнее о переменных — в файле `.env.example`.
 
 ## Структура контента
 
@@ -80,8 +77,7 @@ backend:
 
 ## Переход на свой домен
 
-1. В `vite.config.js` замените `base: '/stolichnaya/'` на `base: '/'`.
+1. В `.github/workflows/deploy.yml` замените `VITE_BASE_PATH: /stolichnaya/` на `VITE_BASE_PATH: /`.
 2. Создайте файл `public/CNAME` с именем домена (например: `stolichnaya-ivanovo.ru`).
-3. В `public/admin/config.yml` обновите `public_folder` на `/images`.
-4. Настройте DNS у регистратора домена: CNAME-запись на `fuckpolitics.github.io`.
-5. В **Settings → Pages** репозитория укажите свой домен и включите HTTPS.
+3. Настройте DNS у регистратора домена: CNAME-запись на `fuckpolitics.github.io`.
+4. В **Settings → Pages** репозитория укажите свой домен и включите HTTPS.
