@@ -11,6 +11,7 @@
         <RouterLink to="/" @click="menuOpen = false">Главная</RouterLink>
         <RouterLink to="/menu" @click="menuOpen = false">Меню</RouterLink>
         <RouterLink to="/rations" @click="menuOpen = false">Рационы</RouterLink>
+        <RouterLink to="/banquets" @click="menuOpen = false">Банкеты</RouterLink>
       </nav>
 
       <div class="header-contacts">

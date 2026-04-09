@@ -68,6 +68,11 @@
               :class="{ active: activeTab === 'rations' }"
               @click="activeTab = 'rations'"
             >Рационы</button>
+            <button
+              class="tab"
+              :class="{ active: activeTab === 'banquets' }"
+              @click="activeTab = 'banquets'"
+            >Банкеты</button>
           </div>
 
           <!-- Settings tab -->
@@ -164,6 +169,16 @@
                     <input v-model.number="item.price" type="number" class="field-input" />
                   </div>
                 </div>
+                <div class="field-group">
+                  <label>Фото (путь или URL)</label>
+                  <div class="image-field-row">
+                    <input v-model="item.image" type="text" class="field-input" placeholder="/images/menu/photo.jpg" />
+                  </div>
+                  <div v-if="item.image" class="image-preview">
+                    <img :src="resolveImg(item.image)" :alt="item.name" />
+                    <button class="btn-delete-tiny image-remove" @click="item.image = ''">✕</button>
+                  </div>
+                </div>
               </div>
 
               <button class="btn-add" @click="addMenuItem(cat)">+ Добавить блюдо</button>
@@ -221,6 +236,87 @@
             <button class="btn-add" @click="addRation">+ Добавить рацион</button>
           </div>
 
+          <!-- Banquets tab -->
+          <div v-if="activeTab === 'banquets'" class="content-editor">
+            <div class="card content-section">
+              <h3 class="content-section-title">Общие настройки</h3>
+              <div class="field-group">
+                <label>Заголовок страницы</label>
+                <input v-model="banquets.title" type="text" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label>Описание страницы</label>
+                <textarea v-model="banquets.description" class="field-input field-textarea" rows="3" />
+              </div>
+              <div class="field-group">
+                <label>Текст внизу страницы (призыв к действию)</label>
+                <textarea v-model="banquets.cta" class="field-input field-textarea" rows="2" />
+              </div>
+            </div>
+
+            <div
+              v-for="(section, secIdx) in banquets.sections"
+              :key="secIdx"
+              class="card content-section"
+            >
+              <div class="category-header">
+                <h3 class="content-section-title" style="margin-bottom:0; border:none; padding:0">
+                  {{ section.title || 'Новый раздел' }}
+                </h3>
+                <button class="btn-delete-small" @click="deleteBanquetSection(secIdx)">Удалить</button>
+              </div>
+              <div class="field-group">
+                <label>Заголовок</label>
+                <input v-model="section.title" type="text" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label>Описание</label>
+                <textarea v-model="section.description" class="field-input field-textarea" rows="3" />
+              </div>
+
+              <div
+                v-for="(item, itemIdx) in section.items"
+                :key="itemIdx"
+                class="menu-item-editor"
+              >
+                <div class="menu-item-header">
+                  <span class="menu-item-num">{{ itemIdx + 1 }}.</span>
+                  <button class="btn-delete-tiny" @click="section.items.splice(itemIdx, 1)">✕</button>
+                </div>
+                <div class="content-two-col">
+                  <div class="field-group">
+                    <label>Название</label>
+                    <input v-model="item.name" type="text" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Описание</label>
+                    <input v-model="item.description" type="text" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Цена (₽)</label>
+                    <input v-model.number="item.price" type="number" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Мин. гостей</label>
+                    <input v-model.number="item.minGuests" type="number" class="field-input" />
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label>Состав (каждый пункт с новой строки)</label>
+                  <textarea
+                    :value="(item.contents || []).join('\n')"
+                    class="field-input field-textarea"
+                    rows="3"
+                    @input="item.contents = $event.target.value.split('\n').filter(s => s.trim())"
+                  />
+                </div>
+              </div>
+
+              <button class="btn-add" @click="addBanquetItem(section)">+ Добавить вариант</button>
+            </div>
+            <button class="btn-add" @click="addBanquetSection">+ Добавить раздел</button>
+          </div>
+
           <!-- Save bar -->
           <div class="save-bar">
             <div v-if="saveStatus" class="save-status" :class="saveStatus.type">
@@ -241,6 +337,7 @@ import { GitHubApi } from '../utils/githubApi.js'
 import siteSource from '../../content/site.json'
 import menuSource from '../../content/menu.json'
 import rationsSource from '../../content/rations.json'
+import banquetsSource from '../../content/banquets.json'
 
 const ADMIN_PIN = import.meta.env.VITE_ADMIN_PIN || 'admin'
 const GH_OWNER = import.meta.env.VITE_GITHUB_OWNER || ''
@@ -270,6 +367,7 @@ export default {
       site: JSON.parse(JSON.stringify(siteSource)),
       menu: JSON.parse(JSON.stringify(menuSource)),
       rations: JSON.parse(JSON.stringify(rationsSource)),
+      banquets: JSON.parse(JSON.stringify(banquetsSource)),
 
       activeTab: 'settings',
       saving: false,
@@ -280,7 +378,12 @@ export default {
 
   computed: {
     _stateSignature() {
-      return JSON.stringify({ site: this.site, menu: this.menu, rations: this.rations })
+      return JSON.stringify({
+        site: this.site,
+        menu: this.menu,
+        rations: this.rations,
+        banquets: this.banquets
+      })
     },
     hasChanges() {
       return this._stateSignature !== this._initialSignature
@@ -294,6 +397,13 @@ export default {
   },
 
   methods: {
+    resolveImg(path) {
+      if (!path) return ''
+      if (path.startsWith('http')) return path
+      const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
+      return base + path
+    },
+
     checkPin() {
       if (this.pinInput === ADMIN_PIN) {
         this.authenticated = true
@@ -343,7 +453,7 @@ export default {
       this.menu.categories.splice(idx, 1)
     },
     addMenuItem(cat) {
-      cat.items.push({ name: '', description: '', weight: '', price: 0 })
+      cat.items.push({ name: '', description: '', weight: '', price: 0, image: '' })
     },
     deleteMenuItem(cat, idx) {
       cat.items.splice(idx, 1)
@@ -358,6 +468,18 @@ export default {
       this.rations.items.splice(idx, 1)
     },
 
+    // Banquets helpers
+    addBanquetSection() {
+      this.banquets.sections.push({ title: '', description: '', items: [] })
+    },
+    deleteBanquetSection(idx) {
+      if (!confirm('Удалить раздел?')) return
+      this.banquets.sections.splice(idx, 1)
+    },
+    addBanquetItem(section) {
+      section.items.push({ name: '', description: '', price: 0, minGuests: 10, contents: [] })
+    },
+
     // Save
     async saveAll() {
       if (!this.api) {
@@ -368,7 +490,7 @@ export default {
       this.saveStatus = null
 
       try {
-        await this.api.updateAllContent(this.site, this.menu, this.rations)
+        await this.api.updateAllContent(this.site, this.menu, this.rations, this.banquets)
         this._initialSignature = this._stateSignature
         this.saveStatus = { type: 'success', message: 'Сохранено! Деплой запущен, изменения появятся через ~2 минуты.' }
       } catch (e) {
@@ -647,6 +769,34 @@ export default {
   font-size: 14px;
   font-weight: 700;
   color: #999;
+}
+
+/* Image field */
+.image-field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.image-preview {
+  position: relative;
+  margin-top: 8px;
+  width: 160px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
 }
 
 /* Buttons */

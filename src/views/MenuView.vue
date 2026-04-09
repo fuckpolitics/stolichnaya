@@ -21,14 +21,24 @@
       </nav>
 
       <div class="menu-grid">
-        <div v-for="item in menu.categories[activeCategory].items" :key="item.name" class="menu-card">
-          <div class="menu-card-body">
-            <h3 class="menu-card-name">{{ item.name }}</h3>
-            <p v-if="item.description" class="menu-card-desc">{{ item.description }}</p>
+        <div
+          v-for="item in menu.categories[activeCategory].items"
+          :key="item.name"
+          class="menu-card"
+          :class="{ 'has-image': item.image }"
+        >
+          <div v-if="item.image" class="menu-card-img-wrap">
+            <img :src="imgSrc(item.image)" :alt="item.name" class="menu-card-img" loading="lazy" />
           </div>
-          <div class="menu-card-meta">
-            <span v-if="item.weight" class="menu-card-weight">{{ item.weight }}</span>
-            <span class="menu-card-price">{{ item.price }} ₽</span>
+          <div class="menu-card-content">
+            <div class="menu-card-body">
+              <h3 class="menu-card-name">{{ item.name }}</h3>
+              <p v-if="item.description" class="menu-card-desc">{{ item.description }}</p>
+            </div>
+            <div class="menu-card-meta">
+              <span v-if="item.weight" class="menu-card-weight">{{ item.weight }}</span>
+              <span class="menu-card-price">{{ item.price }} ₽</span>
+            </div>
           </div>
         </div>
       </div>
@@ -49,6 +59,13 @@ import { useContent } from '../composables/useContent'
 
 const { site, menu } = useContent()
 const activeCategory = ref(0)
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+function imgSrc(path) {
+  if (!path) return ''
+  if (path.startsWith('http')) return path
+  return base + path
+}
 </script>
 
 <style scoped>
@@ -103,23 +120,61 @@ const activeCategory = ref(0)
 
 .menu-grid {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
 }
 
 .menu-card {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 20px 24px;
   background: var(--white);
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.25s, transform 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card:not(.has-image) {
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .menu-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.menu-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.menu-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.menu-card:hover .menu-card-img {
+  transform: scale(1.05);
+}
+
+.menu-card-content {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+}
+
+.menu-card:not(.has-image) .menu-card-content {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .menu-card-body {
@@ -138,10 +193,17 @@ const activeCategory = ref(0)
 .menu-card-desc {
   font-size: 0.88rem;
   color: var(--text-muted);
+  line-height: 1.4;
 }
 
 .menu-card-meta {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.menu-card:not(.has-image) .menu-card-meta {
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
@@ -154,8 +216,8 @@ const activeCategory = ref(0)
 }
 
 .menu-card-price {
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: var(--cherry);
   white-space: nowrap;
 }
@@ -197,16 +259,13 @@ const activeCategory = ref(0)
     font-size: 0.82rem;
   }
 
-  .menu-card {
-    padding: 16px;
-    flex-direction: column;
-    gap: 8px;
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  .menu-card-meta {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
+  .menu-card-content {
+    padding: 14px 16px;
   }
 }
 </style>

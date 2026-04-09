@@ -6,6 +6,7 @@
       <div class="hero-actions">
         <RouterLink to="/menu" class="btn btn-primary">Посмотреть меню</RouterLink>
         <RouterLink to="/rations" class="btn btn-outline hero-btn-outline">Готовые рационы</RouterLink>
+        <RouterLink to="/banquets" class="btn btn-outline hero-btn-outline">Банкеты</RouterLink>
       </div>
     </div>
   </section>
@@ -33,6 +34,13 @@
           </div>
           <h3>Готовые рационы</h3>
           <p>Бизнес-ланчи и комплексные обеды по выгодной цене</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Банкеты и обеды</h3>
+          <p>Организуем банкеты, юбилеи и поминальные обеды</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -112,8 +120,8 @@ const { site } = useContent()
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .feature-card {
@@ -192,7 +200,7 @@ const { site } = useContent()
   }
 
   .features-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
 

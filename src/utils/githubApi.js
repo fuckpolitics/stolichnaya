@@ -1,6 +1,7 @@
 const SITE_JSON_PATH = 'content/site.json'
 const MENU_JSON_PATH = 'content/menu.json'
 const RATIONS_JSON_PATH = 'content/rations.json'
+const BANQUETS_JSON_PATH = 'content/banquets.json'
 
 export class GitHubApi {
   constructor(token, owner, repo, branch = 'main') {
@@ -79,11 +80,12 @@ export class GitHubApi {
     }
   }
 
-  async updateAllContent(siteObject, menuObject, rationsObject) {
+  async updateAllContent(siteObject, menuObject, rationsObject, banquetsObject) {
     const files = [
       { path: SITE_JSON_PATH, content: JSON.stringify(siteObject, null, 2) },
       { path: MENU_JSON_PATH, content: JSON.stringify(menuObject, null, 2) },
-      { path: RATIONS_JSON_PATH, content: JSON.stringify(rationsObject, null, 2) }
+      { path: RATIONS_JSON_PATH, content: JSON.stringify(rationsObject, null, 2) },
+      { path: BANQUETS_JSON_PATH, content: JSON.stringify(banquetsObject, null, 2) }
     ]
     return this.commitMultipleFiles(files, 'CMS: update content')
   }
