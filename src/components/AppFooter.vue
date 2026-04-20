@@ -12,10 +12,21 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           {{ site.address }}
         </p>
-        <p class="footer-text">
-          <a :href="'tel:' + site.phone.replace(/[^+\d]/g, '')">
+        <div v-for="(ph, i) in site.phones" :key="i" class="footer-text footer-phone-row">
+          <a :href="'tel:' + ph">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            {{ site.phone }}
+            {{ formatPhone(ph) }}
+          </a>
+          <span class="footer-messengers">
+            <a :href="'https://t.me/+7' + ph.slice(1)" target="_blank" rel="noopener" title="Telegram">TG</a>
+            <span class="footer-msg-sep">·</span>
+            <a :href="'https://max.ru/call?phone=' + ph" target="_blank" rel="noopener" title="MAX">MAX</a>
+          </span>
+        </div>
+        <p v-if="site.email" class="footer-text">
+          <a :href="'mailto:' + site.email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            {{ site.email }}
           </a>
         </p>
       </div>
@@ -38,6 +49,14 @@
 import { useContent } from '../composables/useContent'
 
 const { site } = useContent()
+
+function formatPhone(ph) {
+  const d = ph.replace(/\D/g, '')
+  if (d.length === 11) {
+    return `${d[0]} (${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7,9)}-${d.slice(9)}`
+  }
+  return ph
+}
 </script>
 
 <style scoped>
@@ -84,6 +103,30 @@ const { site } = useContent()
 
 .footer-text a:hover {
   color: var(--white);
+}
+
+.footer-phone-row {
+  flex-wrap: wrap;
+}
+
+.footer-messengers {
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.footer-messengers a {
+  color: var(--tan);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.footer-messengers a:hover {
+  color: var(--white);
+}
+
+.footer-msg-sep {
+  margin: 0 3px;
+  opacity: 0.5;
 }
 
 .footer-bottom {

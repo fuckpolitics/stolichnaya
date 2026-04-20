@@ -6,7 +6,9 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView },
     { path: '/menu', name: 'menu', component: () => import('../views/MenuView.vue') },
+    { path: '/bar', name: 'bar', component: () => import('../views/BarView.vue') },
     { path: '/rations', name: 'rations', component: () => import('../views/RationsView.vue') },
+    { path: '/corporate', name: 'corporate', component: () => import('../views/CorporateView.vue') },
     { path: '/banquets', name: 'banquets', component: () => import('../views/BanquetsView.vue') },
     { path: '/admin', name: 'admin', component: () => import('../views/AdminView.vue') },
   ],

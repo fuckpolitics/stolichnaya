@@ -3,41 +3,40 @@
     <div class="container">
       <img src="/images/mascot.png" alt="" class="hero-mascot" aria-hidden="true" />
       <div class="hero-text">
-        <h1 class="hero-title">{{ rations.title }}</h1>
-        <p class="hero-subtitle">{{ rations.description }}</p>
+        <h1 class="hero-title">{{ corporate.title }}</h1>
+        <p class="hero-subtitle">{{ corporate.description }}</p>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="rations-grid">
-        <div v-for="item in rations.items" :key="item.name" class="ration-card">
-          <div class="ration-card-header">
-            <h3 class="ration-card-name">{{ item.name }}</h3>
-            <span class="ration-card-price">{{ item.price }} ₽</span>
+      <div class="corp-grid">
+        <div v-for="item in corporate.items" :key="item.name" class="corp-card">
+          <div class="corp-card-header">
+            <h3 class="corp-card-name">{{ item.name }}</h3>
+            <div class="corp-card-price-block">
+              <span class="corp-card-price">{{ item.price }} ₽</span>
+              <span v-if="item.priceLabel" class="corp-card-price-label">{{ item.priceLabel }}</span>
+            </div>
           </div>
-          <p class="ration-card-desc">{{ item.description }}</p>
-          <ul class="ration-card-list">
+          <p class="corp-card-desc">{{ item.description }}</p>
+          <ul class="corp-card-list">
             <li v-for="c in item.contents" :key="c">{{ c }}</li>
           </ul>
-          <a :href="'tel:' + site.phones[0]" class="btn btn-outline ration-card-btn">
-            Заказать по телефону
+          <a :href="'tel:' + site.phones[0]" class="btn btn-outline corp-card-btn">
+            Заказать
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-bar">
-    <div class="container cta-bar-inner">
-      <div>
-        <p class="cta-bar-title">Заказ и доставка рационов</p>
-        <p class="cta-bar-text">Позвоните — и мы соберём рацион к нужному времени</p>
-      </div>
+  <section class="cta-section">
+    <div class="container cta-inner">
+      <p class="cta-text">{{ corporate.cta }}</p>
       <div class="cta-phones">
         <a v-for="(ph, i) in site.phones" :key="i" :href="'tel:' + ph" class="btn btn-primary">
-          <svg v-if="i === 0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           {{ formatPhone(ph) }}
         </a>
       </div>
@@ -48,7 +47,7 @@
 <script setup>
 import { useContent } from '../composables/useContent'
 
-const { site, rations } = useContent()
+const { site, corporate } = useContent()
 
 function formatPhone(ph) {
   const d = ph.replace(/\D/g, '')
@@ -60,13 +59,13 @@ function formatPhone(ph) {
 </script>
 
 <style scoped>
-.rations-grid {
+.corp-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
 }
 
-.ration-card {
+.corp-card {
   background: var(--white);
   border-radius: 12px;
   padding: 28px 24px;
@@ -76,12 +75,12 @@ function formatPhone(ph) {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.ration-card:hover {
+.corp-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.ration-card-header {
+.corp-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -89,33 +88,45 @@ function formatPhone(ph) {
   margin-bottom: 12px;
 }
 
-.ration-card-name {
+.corp-card-name {
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text);
 }
 
-.ration-card-price {
+.corp-card-price-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.corp-card-price {
+  display: block;
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--cherry);
   white-space: nowrap;
+  line-height: 1;
 }
 
-.ration-card-desc {
+.corp-card-price-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.corp-card-desc {
   font-size: 0.92rem;
   color: var(--text-muted);
   margin-bottom: 16px;
 }
 
-.ration-card-list {
+.corp-card-list {
   list-style: none;
   margin-bottom: 20px;
   flex: 1;
 }
 
-.ration-card-list li {
+.corp-card-list li {
   position: relative;
   padding-left: 20px;
   font-size: 0.9rem;
@@ -123,7 +134,7 @@ function formatPhone(ph) {
   color: var(--text);
 }
 
-.ration-card-list li::before {
+.corp-card-list li::before {
   content: '';
   position: absolute;
   left: 0;
@@ -134,52 +145,39 @@ function formatPhone(ph) {
   background: var(--tan);
 }
 
-.ration-card-btn {
+.corp-card-btn {
   align-self: stretch;
   text-align: center;
   justify-content: center;
 }
 
-.cta-bar {
+.cta-section {
   background: var(--tan-light);
-  padding: 32px 0;
+  padding: 40px 0;
 }
 
-.cta-bar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+.cta-inner {
+  text-align: center;
 }
 
-.cta-bar-title {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 600;
+.cta-text {
+  font-size: 1.05rem;
   color: var(--text);
-  margin-bottom: 4px;
-}
-
-.cta-bar-text {
-  font-size: 0.95rem;
-  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
 }
 
 .cta-phones {
   display: flex;
   gap: 12px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
-  .rations-grid {
+  .corp-grid {
     grid-template-columns: 1fr;
-  }
-
-  .cta-bar-inner {
-    flex-direction: column;
-    text-align: center;
   }
 
   .cta-phones {

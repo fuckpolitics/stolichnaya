@@ -3,8 +3,8 @@
     <div class="container">
       <img src="/images/mascot.png" alt="" class="hero-mascot" aria-hidden="true" />
       <div class="hero-text">
-        <h1 class="hero-title">Наше меню</h1>
-        <p class="hero-subtitle">Готовим каждый день из свежих продуктов</p>
+        <h1 class="hero-title">Барное меню</h1>
+        <p class="hero-subtitle">Напитки на любой вкус</p>
       </div>
     </div>
   </section>
@@ -13,7 +13,7 @@
     <div class="container">
       <nav class="category-nav">
         <button
-          v-for="(cat, i) in menu.categories"
+          v-for="(cat, i) in bar.categories"
           :key="i"
           class="category-tab"
           :class="{ active: activeCategory === i }"
@@ -25,7 +25,7 @@
 
       <div class="menu-grid">
         <div
-          v-for="item in menu.categories[activeCategory].items"
+          v-for="item in bar.categories[activeCategory].items"
           :key="item.name"
           class="menu-card"
           :class="{ 'has-image': item.image }"
@@ -60,7 +60,7 @@
 import { ref } from 'vue'
 import { useContent } from '../composables/useContent'
 
-const { site, menu } = useContent()
+const { site, bar } = useContent()
 const activeCategory = ref(0)
 
 function formatPhone(ph) {

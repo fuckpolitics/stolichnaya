@@ -65,9 +65,19 @@
             >Меню</button>
             <button
               class="tab"
+              :class="{ active: activeTab === 'bar' }"
+              @click="activeTab = 'bar'"
+            >Бар</button>
+            <button
+              class="tab"
               :class="{ active: activeTab === 'rations' }"
               @click="activeTab = 'rations'"
             >Рационы</button>
+            <button
+              class="tab"
+              :class="{ active: activeTab === 'corporate' }"
+              @click="activeTab = 'corporate'"
+            >Корп. обеды</button>
             <button
               class="tab"
               :class="{ active: activeTab === 'banquets' }"
@@ -87,15 +97,23 @@
                 <label>Слоган</label>
                 <input v-model="site.tagline" type="text" class="field-input" />
               </div>
+              <div class="field-group">
+                <label>Адрес</label>
+                <input v-model="site.address" type="text" class="field-input" />
+              </div>
               <div class="content-two-col">
                 <div class="field-group">
-                  <label>Адрес</label>
-                  <input v-model="site.address" type="text" class="field-input" />
+                  <label>Телефон 1</label>
+                  <input v-model="site.phones[0]" type="text" class="field-input" />
                 </div>
                 <div class="field-group">
-                  <label>Телефон</label>
-                  <input v-model="site.phone" type="text" class="field-input" />
+                  <label>Телефон 2</label>
+                  <input v-model="site.phones[1]" type="text" class="field-input" />
                 </div>
+              </div>
+              <div class="field-group">
+                <label>Email</label>
+                <input v-model="site.email" type="email" class="field-input" />
               </div>
               <div class="field-group">
                 <label>Часы работы</label>
@@ -186,6 +204,68 @@
             <button class="btn-add" @click="addCategory">+ Добавить категорию</button>
           </div>
 
+          <!-- Bar tab -->
+          <div v-if="activeTab === 'bar'" class="content-editor">
+            <div
+              v-for="(cat, catIdx) in bar.categories"
+              :key="catIdx"
+              class="card content-section"
+            >
+              <div class="category-header">
+                <h3 class="content-section-title" style="margin-bottom:0; border:none; padding:0">
+                  {{ cat.name || 'Новая категория' }}
+                </h3>
+                <button class="btn-delete-small" @click="deleteBarCategory(catIdx)">Удалить</button>
+              </div>
+              <div class="field-group">
+                <label>Название категории</label>
+                <input v-model="cat.name" type="text" class="field-input" />
+              </div>
+
+              <div
+                v-for="(item, itemIdx) in cat.items"
+                :key="itemIdx"
+                class="menu-item-editor"
+              >
+                <div class="menu-item-header">
+                  <span class="menu-item-num">{{ itemIdx + 1 }}.</span>
+                  <button class="btn-delete-tiny" @click="deleteBarItem(cat, itemIdx)">✕</button>
+                </div>
+                <div class="content-two-col">
+                  <div class="field-group">
+                    <label>Название</label>
+                    <input v-model="item.name" type="text" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Описание</label>
+                    <input v-model="item.description" type="text" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Объём</label>
+                    <input v-model="item.weight" type="text" class="field-input" />
+                  </div>
+                  <div class="field-group">
+                    <label>Цена (₽)</label>
+                    <input v-model.number="item.price" type="number" class="field-input" />
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label>Фото (путь или URL)</label>
+                  <div class="image-field-row">
+                    <input v-model="item.image" type="text" class="field-input" placeholder="/images/menu/photo.jpg" />
+                  </div>
+                  <div v-if="item.image" class="image-preview">
+                    <img :src="resolveImg(item.image)" :alt="item.name" />
+                    <button class="btn-delete-tiny image-remove" @click="item.image = ''">✕</button>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-add" @click="addBarItem(cat)">+ Добавить позицию</button>
+            </div>
+            <button class="btn-add" @click="addBarCategory">+ Добавить категорию</button>
+          </div>
+
           <!-- Rations tab -->
           <div v-if="activeTab === 'rations'" class="content-editor">
             <div class="card content-section">
@@ -234,6 +314,66 @@
               </div>
             </div>
             <button class="btn-add" @click="addRation">+ Добавить рацион</button>
+          </div>
+
+          <!-- Corporate tab -->
+          <div v-if="activeTab === 'corporate'" class="content-editor">
+            <div class="card content-section">
+              <h3 class="content-section-title">Общие настройки</h3>
+              <div class="field-group">
+                <label>Заголовок страницы</label>
+                <input v-model="corporate.title" type="text" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label>Описание</label>
+                <textarea v-model="corporate.description" class="field-input field-textarea" rows="2" />
+              </div>
+              <div class="field-group">
+                <label>Текст внизу (призыв к действию)</label>
+                <textarea v-model="corporate.cta" class="field-input field-textarea" rows="2" />
+              </div>
+            </div>
+
+            <div
+              v-for="(item, idx) in corporate.items"
+              :key="idx"
+              class="card content-section"
+            >
+              <div class="category-header">
+                <h3 class="content-section-title" style="margin-bottom:0; border:none; padding:0">
+                  {{ item.name || 'Новый вариант' }}
+                </h3>
+                <button class="btn-delete-small" @click="deleteCorporateItem(idx)">Удалить</button>
+              </div>
+              <div class="content-two-col">
+                <div class="field-group">
+                  <label>Название</label>
+                  <input v-model="item.name" type="text" class="field-input" />
+                </div>
+                <div class="field-group">
+                  <label>Описание</label>
+                  <input v-model="item.description" type="text" class="field-input" />
+                </div>
+                <div class="field-group">
+                  <label>Цена (₽)</label>
+                  <input v-model.number="item.price" type="number" class="field-input" />
+                </div>
+                <div class="field-group">
+                  <label>Подпись цены</label>
+                  <input v-model="item.priceLabel" type="text" class="field-input" placeholder="на персону" />
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Состав (каждый пункт с новой строки)</label>
+                <textarea
+                  :value="item.contents.join('\n')"
+                  class="field-input field-textarea"
+                  rows="4"
+                  @input="item.contents = $event.target.value.split('\n').filter(s => s.trim())"
+                />
+              </div>
+            </div>
+            <button class="btn-add" @click="addCorporateItem">+ Добавить вариант</button>
           </div>
 
           <!-- Banquets tab -->
@@ -336,7 +476,9 @@
 import { GitHubApi } from '../utils/githubApi.js'
 import siteSource from '../../content/site.json'
 import menuSource from '../../content/menu.json'
+import barSource from '../../content/bar.json'
 import rationsSource from '../../content/rations.json'
+import corporateSource from '../../content/corporate.json'
 import banquetsSource from '../../content/banquets.json'
 
 const ADMIN_PIN = import.meta.env.VITE_ADMIN_PIN || 'admin'
@@ -366,7 +508,9 @@ export default {
 
       site: JSON.parse(JSON.stringify(siteSource)),
       menu: JSON.parse(JSON.stringify(menuSource)),
+      bar: JSON.parse(JSON.stringify(barSource)),
       rations: JSON.parse(JSON.stringify(rationsSource)),
+      corporate: JSON.parse(JSON.stringify(corporateSource)),
       banquets: JSON.parse(JSON.stringify(banquetsSource)),
 
       activeTab: 'settings',
@@ -381,7 +525,9 @@ export default {
       return JSON.stringify({
         site: this.site,
         menu: this.menu,
+        bar: this.bar,
         rations: this.rations,
+        corporate: this.corporate,
         banquets: this.banquets
       })
     },
@@ -459,6 +605,21 @@ export default {
       cat.items.splice(idx, 1)
     },
 
+    // Bar helpers
+    addBarCategory() {
+      this.bar.categories.push({ name: '', items: [] })
+    },
+    deleteBarCategory(idx) {
+      if (!confirm('Удалить категорию и все её позиции?')) return
+      this.bar.categories.splice(idx, 1)
+    },
+    addBarItem(cat) {
+      cat.items.push({ name: '', description: '', weight: '', price: 0, image: '' })
+    },
+    deleteBarItem(cat, idx) {
+      cat.items.splice(idx, 1)
+    },
+
     // Rations helpers
     addRation() {
       this.rations.items.push({ name: '', description: '', price: 0, contents: [] })
@@ -466,6 +627,15 @@ export default {
     deleteRation(idx) {
       if (!confirm('Удалить рацион?')) return
       this.rations.items.splice(idx, 1)
+    },
+
+    // Corporate helpers
+    addCorporateItem() {
+      this.corporate.items.push({ name: '', description: '', price: 0, priceLabel: 'на персону', contents: [] })
+    },
+    deleteCorporateItem(idx) {
+      if (!confirm('Удалить вариант?')) return
+      this.corporate.items.splice(idx, 1)
     },
 
     // Banquets helpers
@@ -490,7 +660,7 @@ export default {
       this.saveStatus = null
 
       try {
-        await this.api.updateAllContent(this.site, this.menu, this.rations, this.banquets)
+        await this.api.updateAllContent(this.site, this.menu, this.bar, this.rations, this.corporate, this.banquets)
         this._initialSignature = this._stateSignature
         this.saveStatus = { type: 'success', message: 'Сохранено! Деплой запущен, изменения появятся через ~2 минуты.' }
       } catch (e) {

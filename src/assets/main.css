@@ -13,7 +13,7 @@
   --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body: 'Montserrat', 'Segoe UI', Roboto, Arial, sans-serif;
 
-  --header-height: 72px;
+  --header-height: 100px;
   --max-width: 1140px;
   --gap: 24px;
 }
@@ -143,6 +143,48 @@ img {
   border-color: var(--cherry);
 }
 
+.page-hero {
+  background: linear-gradient(135deg, var(--cherry) 0%, var(--cherry-dark) 100%);
+  color: var(--white);
+  padding: 56px 0;
+  overflow: hidden;
+}
+
+.page-hero .container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.page-hero .hero-text {
+  flex: 1;
+  text-align: center;
+}
+
+.page-hero .hero-title {
+  font-size: 2.6rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.page-hero .hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.85;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.hero-mascot {
+  height: 560px;
+  width: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: -90px;
+  margin-bottom: -504px;
+  pointer-events: none;
+  filter: drop-shadow(4px 2px 12px rgba(0, 0, 0, 0.18));
+}
+
 @media (max-width: 768px) {
   :root {
     --header-height: 60px;
@@ -155,5 +197,17 @@ img {
 
   .section-title {
     font-size: 1.6rem;
+  }
+
+  .page-hero {
+    padding: 32px 0;
+  }
+
+  .page-hero .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-mascot {
+    display: none;
   }
 }

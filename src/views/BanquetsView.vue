@@ -1,8 +1,11 @@
 <template>
-  <section class="banquets-hero">
+  <section class="page-hero">
     <div class="container">
-      <h1 class="banquets-hero-title">{{ banquets.title }}</h1>
-      <p class="banquets-hero-subtitle">{{ banquets.description }}</p>
+      <img src="/images/mascot.png" alt="" class="hero-mascot" aria-hidden="true" />
+      <div class="hero-text">
+        <h1 class="hero-title">{{ banquets.title }}</h1>
+        <p class="hero-subtitle">{{ banquets.description }}</p>
+      </div>
     </div>
   </section>
 
@@ -47,9 +50,11 @@
   <section class="cta-section">
     <div class="container cta-inner">
       <p class="cta-text">{{ banquets.cta }}</p>
-      <a :href="'tel:' + site.phone.replace(/[^+\d]/g, '')" class="btn btn-primary">
-        {{ site.phone }}
-      </a>
+      <div class="cta-phones">
+        <a v-for="(ph, i) in site.phones" :key="i" :href="'tel:' + ph" class="btn btn-primary">
+          {{ formatPhone(ph) }}
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -58,30 +63,17 @@
 import { useContent } from '../composables/useContent'
 
 const { site, banquets } = useContent()
+
+function formatPhone(ph) {
+  const d = ph.replace(/\D/g, '')
+  if (d.length === 11) {
+    return `${d[0]} (${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7,9)}-${d.slice(9)}`
+  }
+  return ph
+}
 </script>
 
 <style scoped>
-.banquets-hero {
-  background: linear-gradient(135deg, var(--cherry) 0%, var(--cherry-dark) 100%);
-  color: var(--white);
-  padding: 48px 0;
-  text-align: center;
-}
-
-.banquets-hero-title {
-  font-size: 2.2rem;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-
-.banquets-hero-subtitle {
-  font-size: 1.05rem;
-  opacity: 0.88;
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
 .section-desc {
   font-size: 1rem;
   color: var(--text-muted);
@@ -202,21 +194,25 @@ const { site, banquets } = useContent()
   line-height: 1.6;
 }
 
+.cta-phones {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
-  .banquets-hero {
-    padding: 32px 0;
-  }
-
-  .banquets-hero-title {
-    font-size: 1.6rem;
-  }
-
   .banquet-grid {
     grid-template-columns: 1fr;
   }
 
   .banquet-card {
     padding: 20px 18px;
+  }
+
+  .cta-phones {
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
