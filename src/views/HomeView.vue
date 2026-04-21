@@ -95,12 +95,11 @@ function formatPhone(ph) {
 .hero-inner {
   display: flex;
   align-items: center;
-  gap: 24px;
 }
 
 .hero-text {
   flex: 1;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-title {
@@ -113,14 +112,13 @@ function formatPhone(ph) {
   font-size: 1.15rem;
   line-height: 1.7;
   max-width: 640px;
-  margin: 0 auto 36px;
+  margin: 0 0 36px;
   opacity: 0.9;
 }
 
 .hero-actions {
   display: flex;
   gap: 16px;
-  justify-content: center;
   flex-wrap: wrap;
 }
 
