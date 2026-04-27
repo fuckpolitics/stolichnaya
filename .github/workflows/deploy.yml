@@ -37,7 +37,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_BASE_PATH: /stolichnaya/
+          VITE_BASE_PATH: /
           VITE_ADMIN_PIN: ${{ secrets.VITE_ADMIN_PIN }}
           VITE_GITHUB_OWNER: ${{ secrets.VITE_GITHUB_OWNER }}
           VITE_GITHUB_REPO: ${{ secrets.VITE_GITHUB_REPO }}
@@ -45,6 +45,9 @@ jobs:
 
       - name: Fix SPA routing for GitHub Pages
         run: cp dist/index.html dist/404.html
+
+      - name: Add CNAME for custom domain
+        run: echo "zastol37.ru" > dist/CNAME
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
