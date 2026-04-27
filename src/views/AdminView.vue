@@ -484,27 +484,22 @@ import banquetsSource from '../../content/banquets.json'
 const ADMIN_PIN = import.meta.env.VITE_ADMIN_PIN || 'admin'
 const GH_OWNER = import.meta.env.VITE_GITHUB_OWNER || ''
 const GH_REPO = import.meta.env.VITE_GITHUB_REPO || ''
-const GH_TOKEN_PRESET = import.meta.env.VITE_GITHUB_TOKEN || ''
 const SESSION_KEY = 'cms_auth'
 
 export default {
   name: 'AdminView',
 
   data() {
-    const api = GH_TOKEN_PRESET
-      ? new GitHubApi(GH_TOKEN_PRESET, GH_OWNER, GH_REPO)
-      : null
-
     return {
       authenticated: sessionStorage.getItem(SESSION_KEY) === '1',
       pinInput: '',
       pinError: false,
 
       githubToken: '',
-      tokenConfirmed: !!GH_TOKEN_PRESET,
+      tokenConfirmed: false,
       tokenChecking: false,
       tokenError: '',
-      api,
+      api: null,
 
       site: JSON.parse(JSON.stringify(siteSource)),
       menu: JSON.parse(JSON.stringify(menuSource)),

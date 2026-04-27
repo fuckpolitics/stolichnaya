@@ -61,7 +61,7 @@ npm run build
 | `VITE_ADMIN_PIN` | PIN-код для входа в CMS |
 | `VITE_GITHUB_OWNER` | Логин владельца репозитория (например: `fuckpolitics`) |
 | `VITE_GITHUB_REPO` | Название репозитория (например: `stolichnaya`) |
-| `VITE_GITHUB_TOKEN` | Personal Access Token (fine-grained, `contents: write`). Если задан — поле ввода токена в CMS скрывается |
+| ~~`VITE_GITHUB_TOKEN`~~ | **Не используется в билде** — токен вводится вручную через CMS-панель (безопаснее, чем вшивать в бандл) |
 
 Подробнее о переменных — в файле `.env.example`.
 
