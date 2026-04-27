@@ -3,99 +3,417 @@
     {
       "name": "Блины",
       "items": [
-        { "name": "Блины", "description": "", "weight": "100 г", "price": 100, "image": "/images/menu/bliny.jpg" },
-        { "name": "Молоко сгущённое", "description": "Наполнитель на выбор", "weight": "50 г", "price": 65, "image": "" },
-        { "name": "Сметана", "description": "Наполнитель на выбор", "weight": "50 г", "price": 60, "image": "" },
-        { "name": "Варенье", "description": "Наполнитель на выбор", "weight": "50 г", "price": 50, "image": "" },
-        { "name": "Молоко сгущённое варёное", "description": "Наполнитель на выбор", "weight": "50 г", "price": 60, "image": "" }
+        {
+          "name": "Блины",
+          "description": "",
+          "weight": "100 г",
+          "price": 100,
+          "image": "/images/menu/bliny.jpg"
+        },
+        {
+          "name": "Молоко сгущённое",
+          "description": "Наполнитель на выбор",
+          "weight": "50 г",
+          "price": 65,
+          "image": ""
+        },
+        {
+          "name": "Сметана",
+          "description": "Наполнитель на выбор",
+          "weight": "50 г",
+          "price": 60,
+          "image": ""
+        },
+        {
+          "name": "Варенье",
+          "description": "Наполнитель на выбор",
+          "weight": "50 г",
+          "price": 50,
+          "image": ""
+        },
+        {
+          "name": "Молоко сгущённое варёное",
+          "description": "Наполнитель на выбор",
+          "weight": "50 г",
+          "price": 60,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Завтраки",
       "items": [
-        { "name": "Каша овсяная", "description": "", "weight": "250 г", "price": 160, "image": "/images/menu/kasha.jpg" },
-        { "name": "Сырники (2 шт)", "description": "С ягодным вареньем и сметаной", "weight": "120 г", "price": 100, "image": "" },
-        { "name": "Яичница из 2-х", "description": "", "weight": "", "price": 100, "image": "" },
-        { "name": "Яичница из 3-х", "description": "", "weight": "", "price": 120, "image": "" },
-        { "name": "Омлет из 2-х", "description": "", "weight": "", "price": 180, "image": "" },
-        { "name": "Омлет из 3-х", "description": "", "weight": "", "price": 240, "image": "" },
-        { "name": "Ветчина", "description": "Наполнитель на выбор", "weight": "30 г", "price": 50, "image": "" },
-        { "name": "Бекон", "description": "Наполнитель на выбор", "weight": "20 г", "price": 100, "image": "" },
-        { "name": "Сыр", "description": "Наполнитель на выбор", "weight": "20 г", "price": 50, "image": "" },
-        { "name": "Помидоры", "description": "Наполнитель на выбор", "weight": "40 г", "price": 70, "image": "" },
-        { "name": "Зелень", "description": "Наполнитель на выбор", "weight": "3 г", "price": 20, "image": "" },
-        { "name": "Лук", "description": "Наполнитель на выбор", "weight": "5 г", "price": 10, "image": "" },
-        { "name": "Фасоль стручковая", "description": "Наполнитель на выбор", "weight": "30 г", "price": 50, "image": "" }
+        {
+          "name": "Каша овсяная",
+          "description": "",
+          "weight": "250 г",
+          "price": 160,
+          "image": "/images/menu/kasha.jpg"
+        },
+        {
+          "name": "Сырники (2 шт)",
+          "description": "С ягодным вареньем и сметаной",
+          "weight": "120 г",
+          "price": 100,
+          "image": ""
+        },
+        {
+          "name": "Яичница из 2-х",
+          "description": "",
+          "weight": "",
+          "price": 100,
+          "image": ""
+        },
+        {
+          "name": "Яичница из 3-х",
+          "description": "",
+          "weight": "",
+          "price": 120,
+          "image": ""
+        },
+        {
+          "name": "Омлет из 2-х",
+          "description": "",
+          "weight": "",
+          "price": 180,
+          "image": ""
+        },
+        {
+          "name": "Омлет из 3-х",
+          "description": "",
+          "weight": "",
+          "price": 240,
+          "image": ""
+        },
+        {
+          "name": "Ветчина",
+          "description": "Наполнитель на выбор",
+          "weight": "30 г",
+          "price": 50,
+          "image": ""
+        },
+        {
+          "name": "Бекон",
+          "description": "Наполнитель на выбор",
+          "weight": "20 г",
+          "price": 100,
+          "image": ""
+        },
+        {
+          "name": "Сыр",
+          "description": "Наполнитель на выбор",
+          "weight": "20 г",
+          "price": 50,
+          "image": ""
+        },
+        {
+          "name": "Помидоры",
+          "description": "Наполнитель на выбор",
+          "weight": "40 г",
+          "price": 70,
+          "image": ""
+        },
+        {
+          "name": "Зелень",
+          "description": "Наполнитель на выбор",
+          "weight": "3 г",
+          "price": 20,
+          "image": ""
+        },
+        {
+          "name": "Лук",
+          "description": "Наполнитель на выбор",
+          "weight": "5 г",
+          "price": 10,
+          "image": ""
+        },
+        {
+          "name": "Фасоль стручковая",
+          "description": "Наполнитель на выбор",
+          "weight": "30 г",
+          "price": 50,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Закуски",
       "items": [
-        { "name": "Бутерброд со свекольным муссом и сельдью", "description": "", "weight": "35 г", "price": 90, "image": "/images/menu/buterbrody-seld.jpg" },
-        { "name": "Бутерброд со шпротами и малосольным огурцом", "description": "", "weight": "35 г", "price": 150, "image": "/images/menu/buterbrody-shproty.jpg" },
-        { "name": "Бутерброд с салом и корнишоном", "description": "", "weight": "30 г", "price": 70, "image": "/images/menu/buterbrody-salo.jpg" },
-        { "name": "Сэндвич с курицей и ветчиной", "description": "", "weight": "140 г", "price": 230, "image": "" },
-        { "name": "Ролл-тортилья с цыплёнком и овощами", "description": "", "weight": "240 г", "price": 350, "image": "/images/menu/shaurma.jpg" },
-        { "name": "Пита с курицей и кукурузой", "description": "", "weight": "220 г", "price": 420, "image": "" }
+        {
+          "name": "Бутерброд со свекольным муссом и сельдью",
+          "description": "",
+          "weight": "35 г",
+          "price": 90,
+          "image": "/images/menu/buterbrody-seld.jpg"
+        },
+        {
+          "name": "Бутерброд со шпротами и малосольным огурцом",
+          "description": "",
+          "weight": "35 г",
+          "price": 150,
+          "image": "/images/menu/buterbrody-shproty.jpg"
+        },
+        {
+          "name": "Бутерброд с салом и корнишоном",
+          "description": "",
+          "weight": "30 г",
+          "price": 70,
+          "image": "/images/menu/buterbrody-salo.jpg"
+        },
+        {
+          "name": "Сэндвич с курицей и ветчиной",
+          "description": "",
+          "weight": "140 г",
+          "price": 230,
+          "image": ""
+        },
+        {
+          "name": "Ролл-тортилья с цыплёнком и овощами",
+          "description": "",
+          "weight": "240 г",
+          "price": 350,
+          "image": "/images/menu/shaurma.jpg"
+        },
+        {
+          "name": "Пита с курицей и кукурузой",
+          "description": "",
+          "weight": "220 г",
+          "price": 420,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Салаты",
       "items": [
-        { "name": "Оливье с ветчиной", "description": "", "weight": "150 г", "price": 150, "image": "/images/menu/olivie.jpg" },
-        { "name": "Сельдь под шубой", "description": "", "weight": "160 г", "price": 170, "image": "/images/menu/shuba.jpg" },
-        { "name": "Винегрет", "description": "", "weight": "150 г", "price": 120, "image": "/images/menu/vinegret.jpg" },
-        { "name": "Салат «Черепаха»", "description": "С цыплёнком и грибами, с грецким орехом", "weight": "160 г", "price": 220, "image": "" }
+        {
+          "name": "Оливье с ветчиной",
+          "description": "",
+          "weight": "150 г",
+          "price": 150,
+          "image": "/images/menu/olivie.jpg"
+        },
+        {
+          "name": "Сельдь под шубой",
+          "description": "",
+          "weight": "160 г",
+          "price": 170,
+          "image": "/images/menu/shuba.jpg"
+        },
+        {
+          "name": "Винегрет",
+          "description": "",
+          "weight": "150 г",
+          "price": 120,
+          "image": "/images/menu/vinegret.jpg"
+        },
+        {
+          "name": "Салат «Черепаха»",
+          "description": "С цыплёнком и грибами, с грецким орехом",
+          "weight": "160 г",
+          "price": 220,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Супы",
       "items": [
-        { "name": "Солянка сборная мясная", "description": "", "weight": "250 г", "price": 260, "image": "/images/menu/solyanka.jpg" },
-        { "name": "Борщ", "description": "", "weight": "250 г", "price": 230, "image": "/images/menu/borsch.jpg" },
-        { "name": "Лапша куриная", "description": "", "weight": "250 г", "price": 120, "image": "/images/menu/kurinaya-lapsha.jpg" }
+        {
+          "name": "Солянка сборная мясная",
+          "description": "",
+          "weight": "250 г",
+          "price": 260,
+          "image": "/images/menu/solyanka.jpg"
+        },
+        {
+          "name": "Борщ",
+          "description": "",
+          "weight": "250 г",
+          "price": 230,
+          "image": "/images/menu/borsch.jpg"
+        },
+        {
+          "name": "Лапша куриная",
+          "description": "",
+          "weight": "250 г",
+          "price": 120,
+          "image": "/images/menu/kurinaya-lapsha.jpg"
+        }
       ]
     },
     {
       "name": "Горячие блюда",
       "items": [
-        { "name": "Пельмени в горшочке", "description": "Свинина/говядина в грибном бульоне с деревенской сметаной и зеленью", "weight": "300 г", "price": 320, "image": "/images/menu/pelmeni.jpg" },
-        { "name": "Шницель из свиной вырезки", "description": "", "weight": "120/50 г", "price": 390, "image": "/images/menu/shnitsel.jpg" },
-        { "name": "Филе бедра куриное на гриле", "description": "Лаваш, лук маринованный, соус", "weight": "120/50/20 г", "price": 420, "image": "/images/menu/ryba-zharenaya.jpg" },
-        { "name": "Биток «Столичный»", "description": "С картофельным пюре и зелёным горошком", "weight": "150/160/50 г", "price": 650, "image": "/images/menu/stolichny.jpg" },
-        { "name": "Жаркое на сковороде", "description": "", "weight": "260 г", "price": 500, "image": "/images/menu/zhulien.jpg" },
-        { "name": "Жареный сулугуни", "description": "", "weight": "80/60 г", "price": 320, "image": "" },
-        { "name": "Щучьи котлеты с картофельным пюре", "description": "", "weight": "100/160/50 г", "price": 350, "image": "/images/menu/kotleta.jpg" },
-        { "name": "Свиная шейка гриль", "description": "С шашлычным соусом", "weight": "130/50 г", "price": 490, "image": "/images/menu/shashlyk.jpg" },
-        { "name": "Индейка в сливочном соусе", "description": "С грибами и картофельным пюре", "weight": "100/100/15 г", "price": 520, "image": "/images/menu/ryba-sous.jpg" }
+        {
+          "name": "Пельмени в горшочке",
+          "description": "Свинина/говядина в грибном бульоне с деревенской сметаной и зеленью",
+          "weight": "300 г",
+          "price": 320,
+          "image": "/images/menu/pelmeni.jpg"
+        },
+        {
+          "name": "Шницель из свиной вырезки",
+          "description": "",
+          "weight": "120/50 г",
+          "price": 390,
+          "image": "/images/menu/shnitsel.jpg"
+        },
+        {
+          "name": "Филе бедра куриное на гриле",
+          "description": "Лаваш, лук маринованный, соус",
+          "weight": "120/50/20 г",
+          "price": 420,
+          "image": "/images/menu/ryba-zharenaya.jpg"
+        },
+        {
+          "name": "Биток «Столичный»",
+          "description": "С картофельным пюре и зелёным горошком",
+          "weight": "150/160/50 г",
+          "price": 650,
+          "image": "/images/menu/stolichny.jpg"
+        },
+        {
+          "name": "Жаркое на сковороде",
+          "description": "",
+          "weight": "260 г",
+          "price": 500,
+          "image": "/images/menu/zhulien.jpg"
+        },
+        {
+          "name": "Жареный сулугуни",
+          "description": "",
+          "weight": "80/60 г",
+          "price": 320,
+          "image": ""
+        },
+        {
+          "name": "Щучьи котлеты с картофельным пюре",
+          "description": "",
+          "weight": "100/160/50 г",
+          "price": 350,
+          "image": "/images/menu/kotleta.jpg"
+        },
+        {
+          "name": "Свиная шейка гриль",
+          "description": "С шашлычным соусом",
+          "weight": "130/50 г",
+          "price": 490,
+          "image": "/images/menu/shashlyk.jpg"
+        },
+        {
+          "name": "Индейка в сливочном соусе",
+          "description": "С грибами и картофельным пюре",
+          "weight": "100/100/15 г",
+          "price": 520,
+          "image": "/images/menu/ryba-sous.jpg"
+        }
       ]
     },
     {
       "name": "Гарниры",
       "items": [
-        { "name": "Кукуруза жареная на гриле", "description": "", "weight": "200 г", "price": 200, "image": "" },
-        { "name": "Картофельное пюре", "description": "", "weight": "160 г", "price": 140, "image": "/images/menu/pyure-griby.jpg" },
-        { "name": "Картофель фри", "description": "", "weight": "120/50 г", "price": 200, "image": "" },
-        { "name": "Шампиньоны гриль", "description": "", "weight": "100 г", "price": 280, "image": "" },
-        { "name": "Картофель «Пушкин»", "description": "С грибами и луком", "weight": "160 г", "price": 220, "image": "" }
+        {
+          "name": "Кукуруза жареная на гриле",
+          "description": "",
+          "weight": "200 г",
+          "price": 200,
+          "image": ""
+        },
+        {
+          "name": "Картофельное пюре",
+          "description": "",
+          "weight": "160 г",
+          "price": 140,
+          "image": "/images/menu/pyure-griby.jpg"
+        },
+        {
+          "name": "Картофель фри",
+          "description": "",
+          "weight": "120/50 г",
+          "price": 200,
+          "image": ""
+        },
+        {
+          "name": "Шампиньоны гриль",
+          "description": "",
+          "weight": "100 г",
+          "price": 280,
+          "image": ""
+        },
+        {
+          "name": "Картофель «Пушкин»",
+          "description": "С грибами и луком",
+          "weight": "160 г",
+          "price": 220,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Десерты",
       "items": [
-        { "name": "Пломбир с шоколадом", "description": "", "weight": "80/20 г", "price": 220, "image": "/images/menu/desert.jpg" },
-        { "name": "Наполеон", "description": "", "weight": "140 г", "price": 350, "image": "" },
-        { "name": "Пирожное картошка", "description": "", "weight": "60 г", "price": 170, "image": "" },
-        { "name": "Ромовая баба", "description": "", "weight": "90 г", "price": 140, "image": "" }
+        {
+          "name": "Пломбир с шоколадом",
+          "description": "",
+          "weight": "80/20 г",
+          "price": 220,
+          "image": "/images/menu/desert.jpg"
+        },
+        {
+          "name": "Наполеон",
+          "description": "",
+          "weight": "140 г",
+          "price": 350,
+          "image": ""
+        },
+        {
+          "name": "Пирожное картошка",
+          "description": "",
+          "weight": "60 г",
+          "price": 170,
+          "image": ""
+        },
+        {
+          "name": "Ромовая баба",
+          "description": "",
+          "weight": "90 г",
+          "price": 140,
+          "image": ""
+        }
       ]
     },
     {
       "name": "Детское меню",
       "items": [
-        { "name": "Суп «Мультики»", "description": "", "weight": "250 г", "price": 220, "image": "/images/menu/schi.jpg" },
-        { "name": "Нагетсы с картофелем фри", "description": "", "weight": "120/140/50 г", "price": 380, "image": "/images/menu/naggetsy.jpg" },
-        { "name": "Бургер с цыплёнком", "description": "", "weight": "120 г", "price": 360, "image": "/images/menu/burger.jpg" },
-        { "name": "«Осьминожки» из сосисок", "description": "С картофелем фри", "weight": "100/120/50 г", "price": 480, "image": "" }
+        {
+          "name": "Суп «Мультики»",
+          "description": "",
+          "weight": "250 г",
+          "price": 220,
+          "image": "/images/menu/schi.jpg"
+        },
+        {
+          "name": "Нагетсы с картофелем фри",
+          "description": "",
+          "weight": "120/140/50 г",
+          "price": 380,
+          "image": "/images/menu/naggetsy.jpg"
+        },
+        {
+          "name": "Бургер с цыплёнком",
+          "description": "",
+          "weight": "120 г",
+          "price": 360,
+          "image": "/images/menu/burger.jpg"
+        },
+        {
+          "name": "«Осьминожки» из сосисок",
+          "description": "С картофелем фри",
+          "weight": "100/120/50 г",
+          "price": 480,
+          "image": ""
+        }
       ]
     }
   ]
